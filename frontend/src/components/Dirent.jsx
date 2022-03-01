@@ -46,7 +46,14 @@ function DirCard(props){
             {
               !props.isDirectory && (
                 <Col>
-                  <FileArrowDownFill />
+                  <FileArrowDownFill
+                    style={{
+                      cursor:"pointer",
+                      color:"#000",
+                      width:"30px",
+                      height:"30px",
+                    }}
+                  />
                 </Col>
               )
             }
