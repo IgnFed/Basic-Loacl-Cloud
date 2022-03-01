@@ -22,10 +22,6 @@ export default function Dir(props){
   const [path , setPath] = useState(params.path || '')
 
   useEffect(()=>{
-    loadContent()
-  },[])
-
-  useEffect(()=>{
     setPath(params.path || '')
     loadContent()
   }, [params.path])
@@ -40,10 +36,10 @@ export default function Dir(props){
   }
 
   async function loadContent(){
+    console.log('Load')
     setIsLoading(true)
-    let response = {}
     try{
-      response = await Api.getContent(params.path || '')
+      await Api.getContent(params.path || '')
         .then((r)=>{
           setResponseData(r)
           setIsLoading(false)
