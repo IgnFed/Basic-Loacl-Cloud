@@ -96,7 +96,7 @@ export default function Dir(props){
       </Row>
       <Row {...COMMON_STYLES.rowStyles}>
         <ModalForm btnVariant="success" icon={<FolderPlus {...COMMON_STYLES.iconStyles} />} title="Create directory" >
-          <MakeDirForm />
+          <MakeDirForm path={path} reload={reloadContent} />
         </ModalForm>
       </Row>
       <Row {...COMMON_STYLES.rowStyles}>

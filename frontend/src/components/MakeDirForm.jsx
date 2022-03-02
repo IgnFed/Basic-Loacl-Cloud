@@ -1,12 +1,12 @@
 import { useState } from 'react' 
 
-import Api from '../api'
-
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner' 
 
-export default function MakeDirForm(){
+import Api from '../api'
+
+export default function MakeDirForm(props){
 
   const [loading, setLoading] = useState(false)
   const [dirName, setDirName] = useState('')
@@ -17,13 +17,13 @@ export default function MakeDirForm(){
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
-    // try{
-    //   const data = await Api.getContent(dirName)
-    //   console.table(data)
-    // }
-    // catch(e){
-    //   console.log(e)
-    // }
+    try{
+      await Api.uploadDir(props.path, dirName)
+        .then(()=>props.reload())
+    }
+    catch(e){
+      console.log(e)
+    }
   }
 
   return(

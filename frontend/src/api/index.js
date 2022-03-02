@@ -22,6 +22,11 @@ export default new class Api{
   uploadContent(path, files){
     return this.#call(()=>this.api.post(`/upload/${path}`,files))
   }
+
+  uploadDir(path, name){
+    return this.#call(()=>this.api.post(`/dir/${path}`, {name}))
+  }
+
   downloadContent(path,file){
     const apiPath = process.env.API_URL
     console.log(`${apiPath}/download/${path}`)
