@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { saveAs } from 'file-saver'
 
 export default new class Api{
   constructor(){
@@ -20,5 +21,10 @@ export default new class Api{
   }
   uploadContent(path, files){
     return this.#call(()=>this.api.post(`/upload/${path}`,files))
+  }
+  downloadContent(path,file){
+    const apiPath = process.env.API_URL
+    console.log(`${apiPath}/download/${path}`)
+    return saveAs(`${apiPath}/download/${path}`, file)
   }
 }
