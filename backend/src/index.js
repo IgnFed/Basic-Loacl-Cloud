@@ -5,6 +5,7 @@ import { err } from './middlewares/err.js'
 import uploadRouter from './routes/upload.js'
 import contentRouter from './routes/content.js'
 import downloadRouter from './routes/download.js'
+import uploadDir from './routes/dir.js'
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/content', contentRouter)
 app.use('/upload', uploadRouter)
+app.use('/dir', uploadDir)
 app.use('/download', downloadRouter)
 
 app.use(err)
