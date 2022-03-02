@@ -4,6 +4,7 @@ import fileupload from 'express-fileupload'
 import { err } from './middlewares/err.js'
 import uploadRouter from './routes/upload.js'
 import contentRouter from './routes/content.js'
+import downloadRouter from './routes/download.js'
 
 const app = express()
 
@@ -12,8 +13,9 @@ app.use(fileupload())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use('/upload', uploadRouter)
 app.use('/content', contentRouter)
+app.use('/upload', uploadRouter)
+app.use('/download', downloadRouter)
 
 app.use(err)
 
