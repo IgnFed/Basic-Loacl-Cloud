@@ -3,7 +3,7 @@ import { normalizePath } from "../lib/normalizePath.js";
 import mime from 'mime-types'
 const router = Router()
 
-router.get('/:path', (req, res)=>{
+router.get('/:path', (req, res, next)=>{
   try{
     const file= normalizePath(req.params.path).absolutePath
     const mimetype = mime.lookup(file)
@@ -11,7 +11,7 @@ router.get('/:path', (req, res)=>{
     res.setHeader('Content-Type', mimetype)
     res.download(file)
   }catch(e){
-    next(e)
+    return next(e)
   }
 })
 
