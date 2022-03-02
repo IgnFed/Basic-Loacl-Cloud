@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import { FileEarmarkTextFill, FolderFill, Arrow90degUp, FileArrowDownFill } from 'react-bootstrap-icons'
+import Api from '../api'
 
 export default function Dirent(props){
 
@@ -47,6 +48,7 @@ function DirCard(props){
               !props.isDirectory && (
                 <Col>
                   <FileArrowDownFill
+                    onClick={()=>Api.downloadContent(`${props.path}--${props.name}`, props.name)}
                     style={{
                       cursor:"pointer",
                       color:"#000",
