@@ -16,6 +16,9 @@ export default (ctx)=>{
         }
       }
     },
+    server:{
+      host: true
+    },
     plugins:[react()]
   })
 }
