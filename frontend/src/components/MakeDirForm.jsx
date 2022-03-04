@@ -4,11 +4,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner' 
 
-import Api from '../api'
+import useApi from '../hooks/useApi'
 
 export default function MakeDirForm(props){
-
-  const [loading, setLoading] = useState(false)
+  const api = useApi()
   const [dirName, setDirName] = useState('')
 
   const handleChange = (e)=>{
@@ -17,13 +16,8 @@ export default function MakeDirForm(props){
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
-    try{
-      await Api.uploadDir(props.path, dirName)
-        .then(()=>props.reload())
-    }
-    catch(e){
-      console.log(e)
-    }
+    api.uploadDir(props.path, dirName)
+      .then(()=>props.reload())
   }
 
   return(
@@ -35,9 +29,9 @@ export default function MakeDirForm(props){
         onChange={handleChange}
       />
       {
-        <Button variant="primary" type="submit" disabled={loading}>
+        <Button variant="primary" type="submit" disabled={api.isLoading}>
           {
-          loading ? 
+          api.isLoading ? 
             (
             <>
               <Spinner

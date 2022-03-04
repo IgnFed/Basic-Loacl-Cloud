@@ -5,10 +5,9 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import { FileEarmarkTextFill, FolderFill, Arrow90degUp, FileArrowDownFill } from 'react-bootstrap-icons'
-import Api from '../api'
+import useApi from '../hooks/useApi'
 
 export default function Dirent(props){
-
   if(!props.path && !props.isDirectory) return <></>
   return(
     <Col lg={4} xl={3} className="mt-2">
@@ -22,6 +21,7 @@ export default function Dirent(props){
 
 
 function DirCard(props){
+  const api = useApi()
   const ICON_COLOR = {color:"#61AFEF", size:'45'}
   let icon = <FileEarmarkTextFill {...ICON_COLOR} />
   if(props.isDirectory) icon = <FolderFill {...ICON_COLOR} />
@@ -48,7 +48,7 @@ function DirCard(props){
               !props.isDirectory && (
                 <Col>
                   <FileArrowDownFill
-                    onClick={()=>Api.downloadContent(`${props.path}--${props.name}`, props.name)}
+                    onClick={()=>api.downloadContent(`${props.path}--${props.name}`, props.name)}
                     style={{
                       cursor:"pointer",
                       color:"#000",
