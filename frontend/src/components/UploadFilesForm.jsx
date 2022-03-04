@@ -10,7 +10,7 @@ export default function UploadFilesForm(props){
 
   const handleOnSubmit = async (e)=>{
     e.preventDefault()
-    setLoading(true)
+    if(!files.length) return;
     const formData = new FormData()
     
     for (const file of files){
