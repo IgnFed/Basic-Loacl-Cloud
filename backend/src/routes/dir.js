@@ -4,7 +4,7 @@ import { normalizePath } from "../lib/normalizePath.js";
 
 const router = Router()
 
-router.post('/:path', async (req,res, next)=>{
+router.post('/:path?', async (req,res, next)=>{
   const processedPath = normalizePath(req.params.path) 
   try{
     const path = processedPath.absolutePath

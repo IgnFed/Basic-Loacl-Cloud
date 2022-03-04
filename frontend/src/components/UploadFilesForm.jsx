@@ -2,10 +2,10 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Spinner from 'react-bootstrap/Spinner'
-import Api from "../api";
+import useApi from "../hooks/useApi";
 
 export default function UploadFilesForm(props){
-  const [loading, setLoading] = useState(false)
+  const api = useApi()
   const [files ,setFiles] = useState([])
 
   const handleOnSubmit = async (e)=>{
@@ -17,7 +17,7 @@ export default function UploadFilesForm(props){
       formData.append('file', file)
     }
 
-    Api.uploadContent(props.path, formData)
+    api.uploadContent(props.path, formData)
       .then(()=>{
         setLoading(false)
         props.reload()
@@ -37,9 +37,9 @@ export default function UploadFilesForm(props){
         onChange={handleOnChange}
       />
       {
-        <Button variant="primary" type="submit" disabled={loading}>
+        <Button variant="primary" type="submit" disabled={api.isLoading}>
           {
-            loading ? 
+            api.isLoading ? 
               (
                 <>
                   <Spinner
