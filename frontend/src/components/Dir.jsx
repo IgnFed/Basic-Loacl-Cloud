@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { Outlet, useParams } from "react-router"
 
 import Container from "react-bootstrap/esm/Container"
@@ -12,13 +12,12 @@ import UploadFilesForm from "./UploadFilesForm"
 import ModalForm from "./ModalForm"
 import MakeDirForm from './MakeDirForm'
 
-import Api from '../api'
 import Dirent from './Dirent'
+import useApi from '../hooks/useApi'
 
-export default function Dir(props){
+export default function Dir(){
   const params = useParams()
-  const [ responseData, setResponseData ] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
+  const { apiData, isLoading, getContent  } = useApi()
   const [path , setPath] = useState(params.path || '')
 
   useEffect(()=>{
@@ -35,50 +34,13 @@ export default function Dir(props){
     loadContent()
   }
 
-  async function loadContent(){
-    console.log('Load')
-    setIsLoading(true)
-    try{
-      await Api.getContent(params.path || '')
-        .then((r)=>{
-          setResponseData(r)
-          setIsLoading(false)
-        })
-    }catch(e){
-      console.log(e)
-    }
+  function loadContent(){
+    getContent(params.path || '')
+      .catch((e)=>console.log(e))
   }
 
   function changePath(value){
     setPath(value)
-  }
-
-  function fill(){
-    const directories = [
-      <Dirent 
-            isDirectory
-            key='parent'  
-            isParentDirectory
-            path={params.path}
-            reload={reloadContent}
-      />
-    ]
-
-    responseData.data?.directories.forEach((dir)=>{
-      directories.push(<Dirent 
-        isDirectory
-        key={dir}
-        name={dir}
-        path={path}
-        reload={loadContent}
-    />)
-    })
-
-    const files = responseData.data?.files.map((dir)=>(
-      <Dirent key={dir} name={dir} path={path} />
-    )) || []
-
-    return [...directories, ...files]
   }
 
   return(
@@ -101,12 +63,40 @@ export default function Dir(props){
       </Row>
       <Row {...COMMON_STYLES.rowStyles}>
       {
-        isLoading ? 
+        isLoading ?
 
         <Spinner animation='border' />
       :
-        fill()    
-
+        (
+          <>
+          <Dirent
+            key={'parent'}
+            isDirectory
+            isParentDirectory
+            path={path}
+          />
+          {
+          apiData.data.directories.map((element)=>(
+            <Dirent 
+              key={element}
+              isDirectory
+              path={path}
+              name={element}
+            />
+          ))
+          }
+          {
+          apiData.data.files.map((element)=>(
+            <Dirent
+              key={element}
+              path={path || '/'}
+              name={element}
+            />
+          ))
+          }
+          </>
+          
+        )
       }
       </Row>
       <Outlet/>
