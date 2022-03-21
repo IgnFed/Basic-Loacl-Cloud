@@ -14,6 +14,6 @@ Puedes cambiar la url de la api al ingresar al siguiente archivo >>> [vite.confi
 * <code>npm i</code>
 * <code>npm run dev</code> o <code>npm run start</code>
 
-Puedes cambiar la url de la api al ingresar al siguiente archivo >>> [vite.config.js](https://github.com/IgnFed/Basic-Local-Cloud/blob/main/backend/.env)
+Puedes cambiar la url de la api al ingresar al siguiente archivo >>> [.env](https://github.com/IgnFed/Basic-Local-Cloud/blob/main/backend/.env)
 * PORT = Numero
 * DIR_STORAGE = URL en tu sistema de archivos para empezar a obtener y guardar.
