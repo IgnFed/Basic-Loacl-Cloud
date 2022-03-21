@@ -19,7 +19,6 @@ export default function UploadFilesForm(props){
 
     api.uploadContent(props.path, formData)
       .then(()=>{
-        setLoading(false)
         props.reload()
       })
   }
